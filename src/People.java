@@ -16,7 +16,7 @@ public class People {
 	
 	private int id;
 	private int size;
-	private int dateID;
+	private int dateID = -1;
 	private boolean date = false;
 	private List list = new ArrayList();
 	
@@ -64,4 +64,5 @@ public class People {
 		System.out.println("");
 	}
 	
+	public void printFinal(){System.out.println("Final choice" + this.dateID);}
 }

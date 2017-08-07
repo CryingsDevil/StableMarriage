@@ -14,12 +14,12 @@ public class Men extends People{
 	public void offerIndexPlus(){this.offerIndex++;}
 	
 	public boolean isOfferEnd(){
-		if(this.offerIndex == this.getSize()){
+		if(this.offerIndex >= this.getSize()){
 			return true;
 		}else{
 			return false;
 		}
 	}
 	
-	public boolean isFinished(){return (this.isDate() || isOfferEnd());}
+	public boolean isFinished(){return (this.isDate() || this.isOfferEnd());	}
 }

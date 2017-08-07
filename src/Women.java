@@ -20,20 +20,30 @@ public class Women extends People{
 		int bestPer = -1;
 		Object instantChoice = -1;
 		int instantPer = -1;
-		for(int i = 0; i < offerList.size(); i++){
-			instantChoice = offerList.get(i);
-			instantPer = getPer().indexOf(instantChoice);
-			
-			if(bestPer == -1 || bestPer > instantPer){
-				bestChoice = instantChoice;
-				bestPer = instantPer;
+		if(this.isDate()){
+			bestPer = getPer().indexOf(this.getDateID());
+			bestChoice = this.getDateID();
+		}
+		if(!offerList.isEmpty()){
+			for(int i = 0; i < offerList.size(); i++){
+				instantChoice = offerList.get(i);
+				instantPer = this.getPer().indexOf(instantChoice);
+				
+				if(bestPer == -1 || bestPer > instantPer){
+					bestChoice = instantChoice;
+					bestPer = instantPer;
+				}
+						
 			}
-					
+		}
+		if(bestPer != -1){
+			this.setDate(true);
+			this.setDateID((int)bestChoice);
 		}
 		
-		if(bestPer != -1){
-			setDate(true);
-			setDateID((int)bestChoice);
-		}
+		this.offerList.clear();
 	}
+	
+	public boolean hasOffer(){ return (!this.offerList.isEmpty());}
+	
 }

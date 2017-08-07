@@ -36,19 +36,44 @@ public class GS {
 		int per = -1;
 		while(!finished){
 			for(int i = 0; i < size; i++){
-				if(!men[i].isDate() && !men[i].isFinished()){
-					per = men[i].getPerIndexof(men[i].getofferIndex());
+				if(!men[i].isFinished()){
+					women[(men[i].getPerIndexof(men[i].getofferIndex()) - 1)].addOffer(i);
 					men[i].offerIndexPlus();
-					
-					if(per != -1)women[per].addOffer(i);
 				}
-				if(!finished){
-					if(men[i].isFinished())this.finished = true;
-				}else{
-					if(!men[i].isFinished())this.finished = false;
-				}
+				finished = finished & men[i].isFinished();
 			}
 			
+			for(int i = 0; i < size; i++){
+				if(women[i].hasOffer()){
+					if(women[i].isDate()){
+						men[women[i].getDateID()].setDate(false);
+						men[women[i].getDateID()].setDateID(-1);
+						women[i].chooseBest();
+						men[women[i].getDateID()].setDate(true);
+						men[women[i].getDateID()].setDateID(i);
+					}else{
+						women[i].chooseBest();
+						men[women[i].getDateID()].setDate(true);
+						men[women[i].getDateID()].setDateID(i);
+					}
+				}
+				
+				
+			}
+			
+		}
+		
+		System.out.println("-----------------------------------------------");
+		System.out.println("Men's final result: ");
+		for(int i = 0; i < size; i++){
+			men[i].printPer();
+			men[i].printFinal();
+		}
+		
+		System.out.println("Women's final result: ");
+		for(int i = 0; i < size; i++){
+			women[i].printPer();
+			women[i].printFinal();
 		}
 	}
 }
