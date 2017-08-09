@@ -33,14 +33,16 @@ public class GS {
 	}
 	
 	public void solve(){
+		int finish = 0;
 		int per = -1;
 		while(!finished){
 			for(int i = 0; i < size; i++){
 				if(!men[i].isFinished()){
-					women[(men[i].getPerIndexof(men[i].getofferIndex()) - 1)].addOffer(i);
+					women[(men[i].getPerIndexof(men[i].getofferIndex()))].addOffer(i);
 					men[i].offerIndexPlus();
+				}else{
+					finish++;
 				}
-				finished = finished & men[i].isFinished();
 			}
 			
 			for(int i = 0; i < size; i++){
@@ -60,8 +62,12 @@ public class GS {
 				
 				
 			}
-			
+			if(finish == size - 1)finished = true;
+			finish = 0;
+			//System.out.println("111");
 		}
+		
+		solveContinue();
 		
 		System.out.println("-----------------------------------------------");
 		System.out.println("Men's final result: ");
@@ -69,11 +75,38 @@ public class GS {
 			men[i].printPer();
 			men[i].printFinal();
 		}
-		
+		System.out.println("-----------------------------------------------");
 		System.out.println("Women's final result: ");
 		for(int i = 0; i < size; i++){
 			women[i].printPer();
 			women[i].printFinal();
+		}
+	}
+	
+	public void solveContinue(){
+		int failedM = 0;
+		int failedMN = 0;
+		int failedW = 0;
+		int failedWN = 0;
+		for(int i = 0; i < size; i++){
+			if(men[i].getDateID() == -1){
+				failedM++;
+				failedMN = i;
+			}
+		}
+		if(failedM == 1){
+			for(int i = 0; i < size; i++){
+				if(women[i].getDateID() == -1){
+					failedW++;
+					failedWN = i;
+				}
+			}
+			if(failedM == failedW){
+				men[failedMN].setDate(true);
+				men[failedMN].setDateID(failedWN);
+				women[failedWN].setDate(true);
+				women[failedWN].setDateID(failedMN);
+			}
 		}
 	}
 }

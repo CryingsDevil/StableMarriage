@@ -2,12 +2,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Women extends People{
-	private List offerList = new ArrayList();
+	private ArrayList<Integer> offerList = new ArrayList();
 	Women(){}
 	
 	Women(int id, int size){
-		setID(id);
-		setSize(size);
+		this.setID(id);
+		this.setSize(size);
 		
 	}
 	
@@ -16,15 +16,23 @@ public class Women extends People{
 	}
 	
 	public void chooseBest(){
-		Object bestChoice = -1;
+		int bestChoice = -1;
 		int bestPer = -1;
-		Object instantChoice = -1;
+		int instantChoice = -1;
 		int instantPer = -1;
+		
 		if(this.isDate()){
-			bestPer = getPer().indexOf(this.getDateID());
 			bestChoice = this.getDateID();
+			bestPer = this.getPer().indexOf(bestChoice);
+			//System.out.println("Dated: bestChoice is " + bestChoice + " bestPer is " + bestPer);
 		}
+		
 		if(!offerList.isEmpty()){
+//			System.out.print("OfferList is ");
+//			for(int i = 0; i < offerList.size(); i++){
+//				System.out.print(offerList.get(i) + " ");
+//			}
+//			System.out.println();
 			for(int i = 0; i < offerList.size(); i++){
 				instantChoice = offerList.get(i);
 				instantPer = this.getPer().indexOf(instantChoice);
@@ -36,9 +44,10 @@ public class Women extends People{
 						
 			}
 		}
-		if(bestPer != -1){
+		if(bestPer != -1 && bestChoice != -1){
+			//System.out.println("Resgin to bestChoice " + bestChoice + " bestPer is " + bestPer);
 			this.setDate(true);
-			this.setDateID((int)bestChoice);
+			this.setDateID(bestChoice);
 		}
 		
 		this.offerList.clear();

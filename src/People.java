@@ -18,11 +18,11 @@ public class People {
 	private int size;
 	private int dateID = -1;
 	private boolean date = false;
-	private List list = new ArrayList();
+	private ArrayList<Integer> list = new ArrayList();
 	
 	public void randomPerList(int size){
 		for(int i = 0; i < size; i++){
-			list.add(i + 1);
+			list.add(i);
 		}
 		Collections.shuffle(list);
 		
@@ -43,9 +43,9 @@ public class People {
 	
 	public int getDateID(){return this.dateID;}
 	
-	public List getPer(){return this.list;}
+	public ArrayList<Integer> getPer(){return this.list;}
 	
-	public int getPerIndexof(int index){return (int)this.list.get(index);}
+	public int getPerIndexof(int index){return this.list.get(index);}
 	
 	public void setID(int id){this.id = id;}
 	
@@ -64,5 +64,5 @@ public class People {
 		System.out.println("");
 	}
 	
-	public void printFinal(){System.out.println("Final choice" + this.dateID);}
+	public void printFinal(){System.out.println("Final choice: " + this.dateID);}
 }
